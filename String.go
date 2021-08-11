@@ -49,6 +49,10 @@ func (s String) TrimRight(suffix string) String {
 	return String(strings.TrimSuffix(s.ValueOf(), suffix))
 }
 
+func (s String) IndexOf(v string) Int {
+	return Int(strings.Index(s.ValueOf(), v))
+}
+
 func (s String) Contains(v string) bool {
 	return strings.Contains(s.ValueOf(), v)
 }
