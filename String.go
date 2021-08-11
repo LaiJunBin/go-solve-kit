@@ -33,23 +33,56 @@ func (s String) Length() Int {
 	return Int(len(s.ValueOf()))
 }
 
+func (s String) Trim(cutset string) String {
+	return String(strings.Trim(s.ValueOf(), cutset))
+}
+
+func (s String) TrimSpace() String {
+	return String(strings.TrimSpace(s.ValueOf()))
+}
+
+func (s String) TrimLeft(prefix string) String {
+	return String(strings.TrimPrefix(s.ValueOf(), prefix))
+}
+
+func (s String) TrimRight(suffix string) String {
+	return String(strings.TrimSuffix(s.ValueOf(), suffix))
+}
+
+func (s String) Contains(v string) bool {
+	return strings.Contains(s.ValueOf(), v)
+}
+
+func (s String) ToLower() String {
+	return String(strings.ToLower(s.ValueOf()))
+}
+
+func (s String) ToUpper() String {
+	return String(strings.ToUpper(s.ValueOf()))
+}
 
 func (array StringArray) Length() Int {
 	return Int(len(array))
 }
 
-func (array StringArray) Map(lambda func(s string, i int) interface{}) TypeArray {
+func (array StringArray) Map(lambda func(s String, i int) interface{}) TypeArray {
 	var output TypeArray
 	for i, v := range array {
-		output = append(output, Type{lambda(v.ValueOf(), i)})
+		output = append(output, Type{lambda(v, i)})
 	}
 	return output
 }
 
-func (array StringArray) Filter(lambda func(s string, i int) bool) StringArray {
+func (array StringArray) ForEach(lambda func(s String, i int)) {
+	for i, v := range array {
+		lambda(v, i)
+	}
+}
+
+func (array StringArray) Filter(lambda func(s String, i int) bool) StringArray {
 	var output StringArray
 	for i, v := range array {
-		if lambda(v.ValueOf(), i) {
+		if lambda(v, i) {
 			output = append(output, v)
 		}
 	}
@@ -87,18 +120,18 @@ func (array StringArray) Fill(v String) StringArray {
 	}).ToStringArray()
 }
 
-func (array StringArray) Every(lambda func(v string, i int) bool) bool {
+func (array StringArray) Every(lambda func(v String, i int) bool) bool {
 	for i, val := range array {
-		if !lambda(val.ValueOf(), i) {
+		if !lambda(val, i) {
 			return false
 		}
 	}
 	return true
 }
 
-func (array StringArray) Some(lambda func(v string, i int) bool) bool {
+func (array StringArray) Some(lambda func(v String, i int) bool) bool {
 	for i, val := range array {
-		if lambda(val.ValueOf(), i) {
+		if lambda(val, i) {
 			return true
 		}
 	}
@@ -106,14 +139,14 @@ func (array StringArray) Some(lambda func(v string, i int) bool) bool {
 }
 
 func (array StringArray) Contains(v string) bool {
-	return array.Some(func(i string, _ int) bool {
-		return i == v
+	return array.Some(func(i String, _ int) bool {
+		return i.ValueOf() == v
 	})
 }
 
-func (array StringArray) FindIndex(lambda func(v string, i int) bool) Int {
+func (array StringArray) FindIndex(lambda func(v String, i int) bool) Int {
 	for i, val := range array {
-		if lambda(val.ValueOf(), i) {
+		if lambda(val, i) {
 			return Int(i)
 		}
 	}
@@ -121,8 +154,8 @@ func (array StringArray) FindIndex(lambda func(v string, i int) bool) Int {
 }
 
 func (array StringArray) IndexOf(v string) Int {
-	return array.FindIndex(func(i string, _ int) bool {
-		return i == v
+	return array.FindIndex(func(i String, _ int) bool {
+		return i.ValueOf() == v
 	})
 }
 

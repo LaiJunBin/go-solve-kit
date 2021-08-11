@@ -21,19 +21,24 @@ func (array IntArray) Length() Int {
 	return Int(len(array))
 }
 
-func (array IntArray) Map(lambda func(v, i int) interface{}) TypeArray {
+func (array IntArray) Map(lambda func(v Int, i int) interface{}) TypeArray {
 	var output TypeArray
 	for i, v := range array {
-		output = append(output, Type{lambda(v.ValueOf(), i)})
+		output = append(output, Type{lambda(v, i)})
 	}
 	return output
 }
 
+func (array IntArray) ForEach(lambda func(s Int, i int)) {
+	for i, v := range array {
+		lambda(v, i)
+	}
+}
 
-func (array IntArray) Filter(lambda func(s, i int) bool) IntArray {
+func (array IntArray) Filter(lambda func(v Int , i int) bool) IntArray {
 	var output IntArray
 	for i, v := range array {
-		if lambda(v.ValueOf(), i) {
+		if lambda(v, i) {
 			output = append(output, v)
 		}
 	}
@@ -70,18 +75,18 @@ func (array IntArray) Fill(v Int) IntArray {
 	}).ToIntArray()
 }
 
-func (array IntArray) Every(lambda func(v, i int) bool) bool {
+func (array IntArray) Every(lambda func(v Int, i int) bool) bool {
 	for i, val := range array {
-		if !lambda(val.ValueOf(), i) {
+		if !lambda(val, i) {
 			return false
 		}
 	}
 	return true
 }
 
-func (array IntArray) Some(lambda func(v, i int) bool) bool {
+func (array IntArray) Some(lambda func(v Int, i int) bool) bool {
 	for i, val := range array {
-		if lambda(val.ValueOf(), i) {
+		if lambda(val, i) {
 			return true
 		}
 	}
@@ -89,14 +94,14 @@ func (array IntArray) Some(lambda func(v, i int) bool) bool {
 }
 
 func (array IntArray) Contains(v int) bool {
-	return array.Some(func(i, _ int) bool {
-		return i == v
+	return array.Some(func(i Int, _ int) bool {
+		return i.ValueOf() == v
 	})
 }
 
-func (array IntArray) FindIndex(lambda func(v, i int) bool) Int {
+func (array IntArray) FindIndex(lambda func(v Int, i int) bool) Int {
 	for i, val := range array {
-		if lambda(val.ValueOf(), i) {
+		if lambda(val, i) {
 			return Int(i)
 		}
 	}
@@ -105,8 +110,8 @@ func (array IntArray) FindIndex(lambda func(v, i int) bool) Int {
 
 
 func (array IntArray) IndexOf(v int) Int {
-	return array.FindIndex(func(i, _ int) bool {
-		return i == v
+	return array.FindIndex(func(i Int, _ int) bool {
+		return i.ValueOf() == v
 	})
 }
 

@@ -21,6 +21,10 @@ func (t Type) ToString() String {
 		return val
 	}
 
+	if val, ok := t.variable.(Int); ok {
+		return val.ToString()
+	}
+
 	if i, ok := t.variable.(int); ok {
 		return String(strconv.Itoa(i))
 	}
@@ -35,6 +39,10 @@ func (t Type) ToInt() Int {
 
 	if val, ok := t.variable.(Int); ok {
 		return val
+	}
+
+	if val, ok := t.variable.(String); ok {
+		return val.ToInt()
 	}
 
 	val, _ := strconv.Atoi(t.ToString().ValueOf())
@@ -59,6 +67,12 @@ func (array TypeArray) Map(lambda func(v Type, i int) interface{}) TypeArray {
 		output = append(output, Type{lambda(v, i)})
 	}
 	return output
+}
+
+func (array TypeArray) ForEach(lambda func(v Type, i int)) {
+	for i, v := range array {
+		lambda(v, i)
+	}
 }
 
 func (array TypeArray) Filter(lambda func(s Type, i int) bool) TypeArray {
@@ -109,6 +123,15 @@ func (array TypeArray) Some(lambda func(v Type, i int) bool) bool {
 		}
 	}
 	return false
+}
+
+func (array TypeArray) FindIndex(lambda func(v Type, i int) bool) Int {
+	for i, val := range array {
+		if lambda(val, i) {
+			return Int(i)
+		}
+	}
+	return -1
 }
 
 func (array TypeArray) Sort(lambda func(x, y Type) bool) {
