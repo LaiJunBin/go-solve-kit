@@ -168,14 +168,18 @@ func (array *StringArray) Append(v string) {
 }
 
 func (array *StringArray) Pop() String {
-	output := (*array)[0]
-	*array = (*array)[1:]
+	output := (*array)[array.Length()-1]
+	*array = (*array)[:array.Length()-1]
 	return output
 }
 
+func (array *StringArray) Enqueue(v String) {
+	*array = append(StringArray{String(v)}, (*array)...)
+}
+
 func (array *StringArray) Dequeue() String {
-	output := (*array)[array.Length()-1]
-	*array = (*array)[:array.Length()-1]
+	output := (*array)[0]
+	*array = (*array)[1:]
 	return output
 }
 

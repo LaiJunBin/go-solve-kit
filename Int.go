@@ -120,14 +120,18 @@ func (array *IntArray) Append(v int) {
 }
 
 func (array *IntArray) Pop() Int {
-	output := (*array)[0]
-	*array = (*array)[1:]
+	output := (*array)[array.Length()-1]
+	*array = (*array)[:array.Length()-1]
 	return output
 }
 
+func (array *IntArray) Enqueue(v int) {
+	*array = append(IntArray{Int(v)}, (*array)...)
+}
+
 func (array *IntArray) Dequeue() Int {
-	output := (*array)[array.Length()-1]
-	*array = (*array)[:array.Length()-1]
+	output := (*array)[0]
+	*array = (*array)[1:]
 	return output
 }
 

@@ -154,8 +154,9 @@ Contains(v int)                                    | bool        | Same as javas
 FindIndex(lambda func(v Int, i int) bool)              | Int         | Same as javascript array.findIndex().
 IndexOf(v int)                                     | Int         | Same as javascript array.indexOf() or vb collection type IndexOf().
 Append(v int)                                      | void        | Append the item to last.
-Pop()                                              | Int         | Get first item and remove.
-Dequeue()                                          | Int         | Get last item and remove.
+Pop()                                              | Int         | Get last item and remove.
+Enqueue(v int)                                          | void         | Append the item to first.
+Dequeue()                                          | Int         | Get first item and remove.
 Remove(v int)                                      | void        | Remove first match item.
 First()                                            | Int         | Get first item.
 Last()                                             | Int         | Get last item.
@@ -182,8 +183,9 @@ Contains(v string)                                 | bool        | Same as javas
 FindIndex(lambda func(v String, i int) bool)       | Int         | Same as javascript array.findIndex().
 IndexOf(v string)                                  | Int         | Same as javascript array.indexOf() or vb collection type IndexOf().
 Append(v string)                                   | void        | Append the item to last.
-Pop()                                              | String      | Get first item and remove.
-Dequeue()                                          | String      | Get last item and remove.
+Pop()                                              | String      | Get last item and remove.
+Enqueue(v string)                                          | void         | Append the item to first.
+Dequeue()                                          | String      | Get first item and remove.
 Remove(v string)                                   | void        | Remove first match item.
 First()                                            | String      | Get first item.
 Last()                                             | String      | Get last item.
