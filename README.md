@@ -99,6 +99,7 @@ NewRange(start, end, step int)  | IntArray    | Generate a range IntArray.
 FromIntArray(items []int)       | IntArray    | From []int create IntArray.
 FromStringArray(items []string) | StringArray | From []string create StringArray.
 LineInput()                     | String      | Read a line of standard input.
+If(boolVar bool, trueVal, falseVal interface{})                     | interface {}      | If boolVar is true, return trueVal, otherwise return falseVal.
 
 ## Basic Type
 

@@ -35,6 +35,14 @@ func FromStringArray(items []string) StringArray {
 	return output
 }
 
+func If(boolVar bool, trueVal, falseVal interface{}) interface{} {
+	if boolVar {
+		return trueVal
+	}
+
+	return falseVal
+}
+
 var reader = bufio.NewReader(os.Stdin)
 func LineInput() String {
 	line , _ := reader.ReadString('\n')
