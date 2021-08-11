@@ -57,6 +57,22 @@ func (t Type) ToArray() TypeArray {
 	return TypeArray{}
 }
 
+func (t Type) ToStringArray() StringArray {
+	if val, ok := t.variable.(StringArray); ok {
+		return val
+	}
+
+	return StringArray{}
+}
+
+func (t Type) ToIntArray() IntArray {
+	if val, ok := t.variable.(IntArray); ok {
+		return val
+	}
+
+	return IntArray{}
+}
+
 func (array TypeArray) Length() Int {
 	return Int(len(array))
 }
@@ -154,4 +170,16 @@ func (array TypeArray) Flatten() TypeArray {
 		output = append(output, v.ToArray()...)
 	}
 	return output
+}
+
+func (array TypeArray) Copy() TypeArray {
+	return append(make(TypeArray, 0), array...)
+}
+
+func (array TypeArray) Slice(start, end int) TypeArray {
+	if end <= 0 {
+		end = array.Length().ValueOf() + end
+	}
+
+	return append(make(TypeArray, 0), array[start:end]...)
 }

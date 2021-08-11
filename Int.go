@@ -155,3 +155,15 @@ func (array IntArray) SortBy(lambda func(x, y Int) bool) {
 		return lambda(array[i], array[j])
 	})
 }
+
+func (array IntArray) Copy() IntArray {
+	return append(make(IntArray, 0), array...)
+}
+
+func (array IntArray) Slice(start, end int) IntArray {
+	if end <= 0 {
+		end = array.Length().ValueOf() + end
+	}
+
+	return append(make(IntArray, 0), array[start:end]...)
+}

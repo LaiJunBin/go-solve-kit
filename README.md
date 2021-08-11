@@ -130,6 +130,8 @@ Method                   | Return Type | Description
 ToString()               | String      | To String type.
 ToInt()                  | Int         | To Int type.
 ToArray()                | TypeArray   | To TypeArray type. (if fails, return an empty TypeArray)
+ToStringArray()                | StringArray   | To StringArray type. (if fails, return an empty StringArray)
+ToIntArray()                | IntArray   | To IntArray type. (if fails, return an empty IntArray)
 
 ---
 
@@ -158,7 +160,9 @@ Remove(v int)                                      | void        | Remove first 
 First()                                            | Int         | Get first item.
 Last()                                             | Int         | Get last item.
 Sort()                                             | void        | Sort by increment. 
-SortBy(lambda func(x, y Int) )                     | void        | Sort by customize.
+SortBy(lambda func(x, y Int))                     | void        | Sort by customize.
+Copy()                     | IntArray        | Copy array.
+Slice(start, end int)                     | IntArray        | Similar to javascript array.slice(), but when end = 0, it is equal to array.length
 
 
 ### StringArray
@@ -184,7 +188,9 @@ Remove(v string)                                   | void        | Remove first 
 First()                                            | String      | Get first item.
 Last()                                             | String      | Get last item.
 Sort()                                             | void        | Sort by increment. 
-SortBy(lambda func(x, y String) )                  | void        | Sort by customize.
+SortBy(lambda func(x, y String))                  | void        | Sort by customize.
+Copy()                     | StringArray        | Copy array.
+Slice(start, end int)                     | StringArray        | Similar to javascript array.slice(), but when end = 0, it is equal to array.length
 
 ### TypeArray
 Method                                             | Return Type | Description  
@@ -199,6 +205,8 @@ Fill(v interface{})                                | TypeArray   | Same as javas
 Every(lambda func(v Type, i int) bool)             | bool        | Same as javascript array.every().
 Some(lambda func(v Type, i int) bool)              | bool        | Same as javascript array.some().
 FindIndex(lambda func(v Type, i int) bool)       | Int         | Same as javascript array.findIndex().
-Sort(lambda func(x, y Type) )                      | void        | Sort by customize.
+Sort(lambda func(x, y Type))                      | void        | Sort by customize.
 Get(indexes ...int)                                | Type        | Get item by indexes.
 Flatten()                                          | TypeArray   | Same as javascript array.flat().
+Copy()                     | TypeArray        | Copy array.
+Slice(start, end int)                     | TypeArray        | Similar to javascript array.slice(), but when end = 0, it is equal to array.length

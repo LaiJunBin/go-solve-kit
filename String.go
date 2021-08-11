@@ -203,3 +203,15 @@ func (array StringArray) SortBy(lambda func(x, y String) bool) {
 		return lambda(array[i], array[j])
 	})
 }
+
+func (array StringArray) Copy() StringArray {
+	return append(make(StringArray, 0), array...)
+}
+
+func (array StringArray) Slice(start, end int) StringArray {
+	if end <= 0 {
+		end = array.Length().ValueOf() + end
+	}
+
+	return append(make(StringArray, 0), array[start:end]...)
+}
