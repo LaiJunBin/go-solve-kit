@@ -94,10 +94,12 @@ TypeArray      | A Type array.
 ## Common Method
 Method                          | Return Type | Description  
 --------------------------------|-------------|-----------------------
+NewType(v interface{})          | Type        | New a type from interface.
 NewArray(size int)              | TypeArray   | New empty array.
 NewRange(start, end, step int)  | IntArray    | Generate a range IntArray.
 FromIntArray(items []int)       | IntArray    | From []int create IntArray.
 FromStringArray(items []string) | StringArray | From []string create StringArray.
+FromInterfaceArray(items interface{}) | TypeArray | From array of interface{} create TypeArray.
 LineInput()                     | String      | Read a line of standard input.
 If(boolVar bool, trueVal, falseVal interface{})                     | interface {}      | If boolVar is true, return trueVal, otherwise return falseVal.
 

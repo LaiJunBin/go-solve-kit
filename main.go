@@ -3,9 +3,13 @@ package go_solve_kit
 import (
 	"bufio"
 	"os"
+	"reflect"
 	"strings"
 )
 
+func NewType(v interface{}) Type {
+	return Type{variable: v}
+}
 
 func NewArray(size int) TypeArray {
 	return make(TypeArray, size)
@@ -35,6 +39,15 @@ func FromStringArray(items []string) StringArray {
 	return output
 }
 
+func FromInterfaceArray(items interface{}) TypeArray {
+	var output TypeArray
+	s := reflect.ValueOf(items)
+	for i := 0; i < s.Len(); i++ {
+		output = append(output, NewType(s.Index(i).Interface()))
+	}
+	return output
+}
+
 func If(boolVar bool, trueVal, falseVal interface{}) interface{} {
 	if boolVar {
 		return trueVal
@@ -44,7 +57,8 @@ func If(boolVar bool, trueVal, falseVal interface{}) interface{} {
 }
 
 var reader = bufio.NewReader(os.Stdin)
+
 func LineInput() String {
-	line , _ := reader.ReadString('\n')
+	line, _ := reader.ReadString('\n')
 	return String(strings.TrimSpace(line))
 }
