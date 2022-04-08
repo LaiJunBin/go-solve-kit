@@ -130,6 +130,7 @@ ToUpper()       | String      | A wrapper of strings.ToUpper()
 ### Type
 Method                   | Return Type | Description  
 -------------------------|-------------|-----------------------
+ValueOf()                      | interface{}      | Get interface{} value.
 ToString()               | String      | To String type.
 ToInt()                  | Int         | To Int type.
 ToArray()                | TypeArray   | To TypeArray type. (if fails, return an empty TypeArray)

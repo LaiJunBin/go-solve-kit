@@ -5,12 +5,14 @@ import (
 	"strconv"
 )
 
-
 type Type struct {
 	variable interface{}
 }
 type TypeArray []Type
 
+func (t Type) ValueOf() interface{} {
+	return t.variable
+}
 
 func (t Type) ToString() String {
 	if t.variable == nil {
